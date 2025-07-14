@@ -16,10 +16,10 @@ const [MONGO_URI, DB_NAME, PORT, ADMIN_USER_NAME] = requireEnvVars([
 mongoose.set("debug", true);
 mongoose
   .connect(`${MONGO_URI}/${DB_NAME}`)
-  .then((_) => {
-    PORT;
+  .then(() => {
+    console.log(`✅ MongoDB connected at ${MONGO_URI}/${DB_NAME}`);
     app.listen(PORT, () => {
-      console.log(`Server started on port ${PORT}`);
+      console.log(`🚀 Server started on port ${PORT}`);
     });
   })
   .catch((err) => {
