@@ -76,8 +76,13 @@ export const login = async (req: TypedRequest, res: Response, next: NextFunction
 
 export const add = async (req: TypedRequest<AddUserDTO>, res: Response, next: NextFunction) => {
   try {
-    const userBody = omit(req.body, "username", "password");
+    const userBodyTmp = omit(req.body, "username", "password");
     const credentials = pick(req.body, "username", "password");
+    const userBody = {
+      ...userBodyTmp,
+      username: req.body.username,
+      role: req.body.role || "user", // Default role is "user"
+    };
 
     const newUser = await userService.add(userBody, credentials, req);
     const identity = await userService.getUserIdentityByUserId(newUser.id!);

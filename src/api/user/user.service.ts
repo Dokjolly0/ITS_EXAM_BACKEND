@@ -87,6 +87,10 @@ export class UserService {
     return user;
   }
 
+  async existingUser(userId: string) {
+    return await UserModel.findById(userId);
+  }
+
   async getUserIdentityByUserId(userId: string) {
     return await UserIdentityModel.findOne({ user: userId });
   }

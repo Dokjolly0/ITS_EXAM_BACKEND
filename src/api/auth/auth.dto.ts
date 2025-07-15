@@ -1,4 +1,5 @@
-import { IsDateString, IsEmail, IsString, IsOptional, MinLength, IsNotEmpty } from "class-validator";
+import { IsDateString, IsEmail, IsString, IsOptional, MinLength, IsNotEmpty, IsEnum } from "class-validator";
+import { USER_ROLE_ENUM } from "../../utils/enums/user.enum";
 
 export class AddUserDTO {
   // Requested fields
@@ -13,6 +14,11 @@ export class AddUserDTO {
 
   @MinLength(8)
   password: string;
+
+  @IsOptional()
+  @IsEnum(USER_ROLE_ENUM)
+  @IsString()
+  role?: (typeof USER_ROLE_ENUM)[number]; // Optional, defaults to "user"
 }
 
 export class LoginDTO {

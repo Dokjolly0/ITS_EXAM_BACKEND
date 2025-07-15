@@ -94,27 +94,3 @@ export const resetPasswordFromEmail = async (req: Request, res: Response, next: 
     next(error);
   }
 };
-
-export const joinTournament = async (req: TypedRequest, res: Response, next: NextFunction) => {
-  try {
-    const user = await UserModel.findById(req.user!.id);
-    if (!user) throw new NotFoundError();
-    user.isTournamentParticipant = true;
-    await user.save();
-    res.status(200).json({ message: "Successfully joined the tournament!" });
-  } catch (err) {
-    next(err);
-  }
-};
-
-export const becomeOrganizer = async (req: TypedRequest, res: Response, next: NextFunction) => {
-  try {
-    const user = await UserModel.findById(req.user!.id);
-    if (!user) throw new NotFoundError();
-    user.role = "admin";
-    await user.save();
-    res.status(200).json({ message: "You are now a tournament organizer!" });
-  } catch (err) {
-    next(err);
-  }
-};

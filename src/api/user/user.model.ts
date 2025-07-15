@@ -1,19 +1,18 @@
 import mongoose from "mongoose";
 import { User } from "./user.entity";
+import { USER_ROLE_ENUM } from "../../utils/enums/user.enum";
 
 const userSchema = new mongoose.Schema<User>({
   // User table
   firstName: String,
   lastName: String,
-  role: { type: String, default: "user" },
+  role: { type: String, enum: USER_ROLE_ENUM, default: "user" },
   // Security info
   createdAt: { type: Date, default: Date.now },
   lastUpdateAt: { type: Date, default: undefined },
   lastLogin: { type: Date, default: undefined },
   lastAllowedIp: { type: String || undefined, default: undefined },
   allowedIps: { type: [String], default: [] },
-
-  isTournamentParticipant: { type: Boolean, default: false },
 });
 
 userSchema.virtual("fullName").get(function () {
